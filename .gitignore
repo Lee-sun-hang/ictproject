@@ -1,2 +1,4 @@
 __pycahe__
 db.sqlite3
+*.pyc
+*.xml

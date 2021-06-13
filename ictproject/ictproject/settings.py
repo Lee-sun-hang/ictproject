@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+import json
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,6 +25,25 @@ SECRET_KEY = 'django-insecure-5n#zz*9*66el_q+ry-ch1i(=-!$h6$i-)b$ip-s%y#+3f9mg_b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+from django.core.exceptions import ImproperlyConfigured
+
+with open('secrets.json') as f :
+    secrets = json.loads(f.read())
+
+# Keep secret keys in secrets.json
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {0} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+DB_NAME = get_secret("db_name")
+DB_USER = get_secret("db_user")
+DB_PW = get_secret("db_pw")
+DB_HOST = get_secret("db_host")
+DB_PORT = get_secret("db_port")
+
 ALLOWED_HOSTS = []
 
 
@@ -37,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'user_board',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +95,13 @@ WSGI_APPLICATION = 'ictproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PW,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT
+
     }
 }
 
