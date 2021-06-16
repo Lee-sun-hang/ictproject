@@ -3,3 +3,8 @@
 # 앱 생성
     - python manage.py jango-admin startproject config .
     - setting.py 파일에 환경설정(secret.json 파일)
+    
+    
+# 기타
+    - 장고 쉘 실행
+    - python manage.py shell
