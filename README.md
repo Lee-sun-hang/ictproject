@@ -8,3 +8,6 @@
 # 기타
     - 장고 쉘 실행
     - python manage.py shell
+
+# 참고사이트
+    https://wikidocs.net/71303
