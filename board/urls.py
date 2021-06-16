@@ -2,9 +2,11 @@ from django.urls import path
 
 from . import views
 
+app_name = 'board'
+
 urlpatterns = [
-    path('', views.index),
-    path('<int:question_id>/', views.detail),
+    path('', views.index, name='index'),
+    path('<int:question_id>/', views.detail, name='detail'),
 ]
 
 # 제너릭 뷰 예시
