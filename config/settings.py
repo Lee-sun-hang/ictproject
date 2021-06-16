@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'board.apps.BoardConfig',
+    'common.apps.CommonConfig',
 ]
 
 MIDDLEWARE = [
@@ -90,7 +91,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
