@@ -103,8 +103,10 @@ DATABASES = {
         'USER': DB_USER,
         'PASSWORD': DB_PW,
         'HOST': DB_HOST,
-        'PORT': DB_PORT
-
+        'PORT': DB_PORT,
+        'OPTIONS': {
+            'charset': 'utf8mb4'  # This is the important line
+        }
     }
 }
 
