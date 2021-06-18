@@ -8,6 +8,8 @@
 # 기타
     - 장고 쉘 실행
     - python manage.py shell
-
+    - github desktop 사용
 # 참고사이트
     https://wikidocs.net/71303
+    
+    
