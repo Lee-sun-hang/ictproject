@@ -6,6 +6,7 @@ from django.utils import timezone
 from ..forms import QuestionForm
 from ..models import Question
 
+from django.db import connection
 
 @login_required(login_url='common:login')
 def question_create(request):
@@ -37,7 +38,17 @@ def question_modify(request, question_id):
             question = form.save(commit=False)
             question.author = request.user
             question.modify_date = timezone.now()  # 수정일시 저장
-            question.save()
+            # question.save()
+            ################ 취약한 코드 작성 ################
+            author = question.author
+            subject = question.subject
+            content = question.content
+            modify_date = timezone.now()
+            cur = connection.cursor()
+            q = 'UPDATE ictproject.board_question set subject="{0}",content="{1}",\
+             modify_date="{2}" WHERE id = {3};'.format(subject, content, modify_date, question_id)
+            data = cur.execute(q)
+            ################################################
             return redirect('board:detail', question_id=question.id)
     else:
         form = QuestionForm(instance=question)
