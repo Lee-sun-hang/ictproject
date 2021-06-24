@@ -45,6 +45,7 @@ def question_modify(request, question_id):
             content = question.content
             modify_date = timezone.now()
             cur = connection.cursor()
+            subject, content = processString(subject, content)
             q = 'UPDATE ictproject.board_question set subject="{0}",content="{1}",\
              modify_date="{2}" WHERE id = {3};'.format(subject, content, modify_date, question_id)
             data = cur.execute(q)
@@ -63,3 +64,12 @@ def question_delete(request, question_id):
         return redirect('board:detail', question_id=question.id)
     question.delete()
     return redirect('board:index')
+
+def processString(str1, str2):
+    specialChars = "'\"\\-#()@;=*/+"
+    for specialChar in specialChars:
+        str1 = str1.replace(specialChar, '')
+        str2 = str2.replace(specialChar, '')
+    str1 = str1.replace(',', ' ')
+    str2 = str2.replace(',', ' ')
+    return str1, str2
