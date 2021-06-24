@@ -46,6 +46,7 @@ def question_modify(request, question_id):
             modify_date = timezone.now()
             cur = connection.cursor()
             subject, content = processString(subject, content)
+            subject, content = xss_word_replace(subject, content)
             q = 'UPDATE ictproject.board_question set subject="{0}",content="{1}",\
              modify_date="{2}" WHERE id = {3};'.format(subject, content, modify_date, question_id)
             data = cur.execute(q)
@@ -72,4 +73,9 @@ def processString(str1, str2):
         str2 = str2.replace(specialChar, '')
     str1 = str1.replace(',', ' ')
     str2 = str2.replace(',', ' ')
+    return str1, str2
+
+def xss_word_replace(str1, str2):
+    str1 = str1.replace('<', '&lt;').replace('>', '&gt;')
+    str2 = str2.replace('<', '&lt;').replace('>', '&gt;')
     return str1, str2
