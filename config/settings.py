@@ -45,7 +45,7 @@ DB_PORT = get_secret("db_port")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','192.168.40.10']
+ALLOWED_HOSTS = ['127.0.0.1','192.168.30.10']
 
 
 # Application definition
